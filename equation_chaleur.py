@@ -1,4 +1,5 @@
 import numpy as np;
+import matplotlib.pyplot as mp
 import math;
 
 
@@ -33,7 +34,13 @@ def generate_matrix(N):
                     generate_neighbour_block(A, N, i, j + N)
 
     return A
+
                 
-            
-            
-    
+A= generate_matrix(3)            
+b= np.zeros([9,1])
+b[5,0] = 1
+print A.shape
+print b.shape
+res = np.dot(np.linalg.inv(A),b).reshape((3,3))
+mp.imshow(res)
+mp.show()
