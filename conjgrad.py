@@ -1,7 +1,7 @@
 from __future__ import division
 import numpy as np;
+import numpy.linalg as la;
 import math;
-
 
 def conjgrad(A,b,x):
     r = b - A*x;
@@ -24,6 +24,34 @@ def conjgrad(A,b,x):
         
     return x
 
+
+def conjgrad_precond(A,b,x):
+    r = b - A*x;
+    M = la.cholesky(A); # preconditioner    
+    z = la.inv(M)*r;
+    p = z;
+    rsold = (np.transpose(r)*z)[0,0];
+ 
+    while True:
+        Ap = A * p;
+        alpha = (rsold / (np.transpose(p) * Ap))[0,0];
+
+        x = x + alpha * p;
+        r = r - alpha * Ap;
+        z = la.inv(M)*r;
+        rsnew = (np.transpose(z)*r)[0,0];
+        print(rsnew)
+        print(M)
+
+        if math.sqrt(rsnew) < 1e-10:
+              break;
+
+        p = z + rsnew/rsold * p;
+        rsold = rsnew;
+        
+    return x
+    
+
 #############################
 
 A = np.matrix( [[4,1],
@@ -36,3 +64,4 @@ x = np.matrix( [[2],
                [1]] )
 
 print(conjgrad(A, b, x))
+print(conjgrad_precond(A, b, x))
