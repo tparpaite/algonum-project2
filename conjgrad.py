@@ -3,12 +3,14 @@ import numpy as np;
 import numpy.linalg as la;
 import math;
 
+# Conjugate gradient method 
 def conjgrad(A,b,x):
     r = b - A*x;
     p = r;
     rsold = (np.transpose(r)*r)[0,0];
- 
-    while True:
+
+    end = False
+    while end == False:
         Ap = A * p;
         alpha = (rsold / (np.transpose(p) * Ap))[0,0];
 
@@ -17,7 +19,7 @@ def conjgrad(A,b,x):
         rsnew = (np.transpose(r)*r)[0,0];
 
         if math.sqrt(rsnew) < 1e-10:
-              break;
+              end = True;
 
         p = r + rsnew/rsold * p;
         rsold = rsnew;
@@ -31,8 +33,9 @@ def conjgrad_precond(A,b,x):
     z = la.inv(M)*r;
     p = z;
     rsold = (np.transpose(r)*z)[0,0];
- 
-    while True:
+
+    end = False;
+    while end == False:
         Ap = A * p;
         alpha = (rsold / (np.transpose(p) * Ap))[0,0];
 
@@ -41,10 +44,9 @@ def conjgrad_precond(A,b,x):
         z = la.inv(M)*r;
         rsnew = (np.transpose(z)*r)[0,0];
         print(rsnew)
-        print(M)
 
-        if math.sqrt(rsnew) < 1e-10:
-              break;
+        if np.sqrt(rsnew) < 1e-10:
+              end = True;
 
         p = z + rsnew/rsold * p;
         rsold = rsnew;
@@ -64,4 +66,4 @@ x = np.matrix( [[2],
                [1]] )
 
 print(conjgrad(A, b, x))
-print(conjgrad_precond(A, b, x))
+#print(conjgrad_precond(A, b, x))
