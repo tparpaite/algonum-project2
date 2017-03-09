@@ -35,6 +35,8 @@ def generate_matrix(N):
                     generate_neighbour_block(A, N, i, j + N)
 
     return A
+
+#########################
                
 A = generate_matrix(3)            
 b = np.zeros([9,1])
@@ -45,7 +47,7 @@ print b.shape
 
 #res = np.dot(np.linalg.inv(A),b).reshape((3,3))
 
-# Vector solution : 
+# Vector solution 
 x = np.zeros([9,1]);
 print x.shape
 print x

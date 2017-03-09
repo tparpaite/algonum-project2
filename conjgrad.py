@@ -5,6 +5,7 @@ import math;
 
 # Conjugate gradient method 
 def conjgrad(A,b,x):
+    
     r = b - A*x;
     p = r;
     rsold = (np.transpose(r)*r)[0,0];
