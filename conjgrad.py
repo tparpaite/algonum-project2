@@ -3,6 +3,7 @@ import numpy as np;
 import numpy.linalg as la;
 import math;
 
+# Conjugate gradient method 
 def conjgrad(A,b,x):
     r = b - A*x;
     p = r;
@@ -32,8 +33,9 @@ def conjgrad_precond(A,b,x):
     z = la.inv(M)*r;
     p = z;
     rsold = (np.transpose(r)*z)[0,0];
- 
-    while True:
+
+    end = False;
+    while end == False:
         Ap = A * p;
         alpha = (rsold / (np.transpose(p) * Ap))[0,0];
 
@@ -42,10 +44,9 @@ def conjgrad_precond(A,b,x):
         z = la.inv(M)*r;
         rsnew = (np.transpose(z)*r)[0,0];
         print(rsnew)
-        print(M)
 
-        if math.sqrt(rsnew) < 1e-10:
-              break;
+        if np.sqrt(rsnew) < 1e-10:
+              end = True;
 
         p = z + rsnew/rsold * p;
         rsold = rsnew;
