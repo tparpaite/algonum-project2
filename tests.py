@@ -8,11 +8,7 @@ def run_test(test):
         print(test.__name__ + " PASSED")
     else:
         print(test.__name__ + " FAILED")
-
-
-def test_cholesky():
-    """ """
-
+        
 
 def test_conjgrad():
     """ Test basique (wikipedia) """    

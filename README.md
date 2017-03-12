@@ -1,6 +1,13 @@
 # algonum-project2
+Projet numero 2 d'algorithmique numerique
+Mars 2017
 
-Pour lancer les tests :
+Pour lancer les tests sur Cholesky :
+'''
+python tests_cholesky.py
+'''
+
+Pour lancer les tests sur conjgrad et equation_chaleur :
 '''
 python tests.py
 '''
