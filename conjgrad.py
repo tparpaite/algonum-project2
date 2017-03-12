@@ -3,9 +3,10 @@ import numpy as np;
 import numpy.linalg as la;
 import math;
 
-# Conjugate gradient method 
-def conjgrad(A,b,x):
-    
+
+def conjgrad(A, b, x):
+    """ PARAMS : A (matrice), b vecteur connu, x vecteur inconnu
+    Resout l'equation Ax = b en utilisant la methode du gradient conjugue """
     r = b - A*x;
     p = r;
     rsold = (np.transpose(r)*r)[0,0];
@@ -28,7 +29,8 @@ def conjgrad(A,b,x):
     return x
 
 
-def conjgrad_precond(A,b,x):
+def conjgrad_precond(A, b, x):
+    """ Methode du gradient conjugue avec preconditionneur (non acheve) """
     r = b - A*x;
     M = la.cholesky(A); # preconditioner    
     z = la.inv(M)*r;
@@ -44,7 +46,7 @@ def conjgrad_precond(A,b,x):
         r = r - alpha * Ap;
         z = la.inv(M)*r;
         rsnew = (np.transpose(z)*r)[0,0];
-        print(rsnew)
+        #print(rsnew)
 
         if np.sqrt(rsnew) < 1e-10:
               end = True;
@@ -53,18 +55,3 @@ def conjgrad_precond(A,b,x):
         rsold = rsnew;
         
     return x
-    
-
-#############################
-
-A = np.matrix( [[4,1],
-               [1, 3]] )
-
-b = np.matrix( [[1],
-               [2]] )
-
-x = np.matrix( [[2],
-               [1]] )
-
-print(conjgrad(A, b, x))
-#print(conjgrad_precond(A, b, x))
