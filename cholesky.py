@@ -1,8 +1,8 @@
 import numpy as np
 
 #Nom de la fonction: cholesky
-#Paramètres: une matrice symétrique définie positive A
-#Retourne: une matrice T qui est la décomposition de cholesky de la matrice A"
+#Parametres: une matrice symetrique definie positive A
+#Retourne: une matrice T qui est la decomposition de cholesky de la matrice A
 
 def cholesky(A):
     n = len(A)
@@ -25,8 +25,8 @@ def cholesky(A):
 
 
 #Nom de la fonction: cholesky_incomplet
-#Paramètres: une matrice symétrique définie positive A qui a un nombre non nul de valeurs nulles
-#Retourne: une matrice T qui est la décomposition de cholesky de la matrice A
+#Parametres: une matrice symetrique definie positive A creuse
+#Retourne: une matrice T qui est la decomposition de cholesky de la matrice A
 
 def cholesky_incomplet(A):
     n = len(A)
@@ -51,9 +51,9 @@ def cholesky_incomplet(A):
 
 
 #Nom de la fonction: genere
-#Paramètres: un entier n
-#Retourne: une matrice symétrique définie positive de taille n*n T en générant d'abord aléatoirement une matrice triangulaire inférieure A, en calculant son transposé B et en faisant T = A*B
-#Rôle: permet de tester la fonction cholesky 
+#Parametres: un entier n
+#Retourne: une matrice symetrique definie positive de taille n*n T en generant d'abord aleatoirement une matrice triangulaire inferieure A, en calculant son transpose B et en faisant T = A*B
+#Role: permet de tester la fonction cholesky 
 
 def genere(n):
     A = np.matrix(np.zeros([n,n]))
@@ -65,9 +65,9 @@ def genere(n):
 
 
 # Nom de la fonction: generation
-#Paramètres: deux entiers n et p
-#Retourne: une matrice symétrique définie positive de taille n*n T ayant 2*p valeurs nulles en générant d'abord aléatoirement une matrice triangulaire inférieure A avec p valeurs nulles, en calculant son transposé B et en faisant T = A*B
-#Rôle: tester la fonction cholesky_incomplet 
+#Parametres: deux entiers n et p
+#Retourne: une matrice symetrique definie positive creuse de taille n*n T ayantun nombre de valeurs nulles < 2*p en generant d'abord aleatoirement une matrice triangulaire inferieure A, en calculant son transpose B et en faisant T = A*B
+#Role: tester la fonction cholesky_incomplet 
 
 def generation(n,p):
     A = np.matrix(np.zeros([n,n]))
@@ -75,9 +75,10 @@ def generation(n,p):
     for i in range(n):
         for j in range(i+1):
             A[i,j] = np.random.rand()
-            if( i!=j and nb <= p):
+            if( i!=j and nb <= p and np.random.randint(2,3)==2):
                 A[i,j] = 0
                 nb += 1
     B = np.matrix.transpose(A)
     return A*B
+
 
